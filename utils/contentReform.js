@@ -14,14 +14,15 @@ function contentReform(text) {
 
   while (i < textList.length) {
     if (textList[i].includes(`class="example"`)) {
-      while (!(textList[i].includes('Input:'))) {
+      while (!textList[i].includes("Input:")) {
         i++;
       }
-      let input =
-        /(?<=<strong>Input:<\/strong>\s)[^(\n)]+?(?=\n)/.exec(textList[i]) + "";
-      let output =
-        /(?<=<strong>Output:<\/strong>\s)[^(\n)]+?(?=\n)/.exec(textList[i]) +
-        "";
+      let input = (
+        /(?<=<strong>Input:<\/strong>\s)[^(\n)]+?(?=\n)/.exec(textList[i]) + ""
+      ).trim();
+      let output = (
+        /(?<=<strong>Output:<\/strong>\s)[^(\n)]+?(?=\n)/.exec(textList[i]) + ""
+      ).trim();
       resultJson.exampleList.push({ input, output });
     } else if (textList[i].includes(`Constraints:`)) {
       i++;
