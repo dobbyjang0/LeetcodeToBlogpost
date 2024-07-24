@@ -14,7 +14,9 @@ function contentReform(text) {
 
   while (i < textList.length) {
     if (textList[i].includes(`class="example"`)) {
-      i++;
+      while (!(textList[i].includes('Input:'))) {
+        i++;
+      }
       let input =
         /(?<=<strong>Input:<\/strong>\s)[^(\n)]+?(?=\n)/.exec(textList[i]) + "";
       let output =
@@ -34,7 +36,6 @@ function contentReform(text) {
     }
     i++;
   }
-  console.log(resultJson)
   return resultJson;
 }
 
