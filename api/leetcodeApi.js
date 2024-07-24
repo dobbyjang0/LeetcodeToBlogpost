@@ -9,32 +9,6 @@ async function getQuestionInfo(titleSlug) {
         questionFrontendId
         title
         difficulty
-      }
-    }
-  `;
-
-  const variables = {
-    titleSlug,
-  };
-
-  try {
-    const data = await request(LEETCODE_URL, query, variables);
-    const { questionFrontendId, title, difficulty } = data.question;
-
-    return {
-      id: +questionFrontendId,
-      title,
-      difficulty,
-    };
-  } catch (error) {
-    console.error(`Error fetching problem slug: ${error}`);
-  }
-}
-
-async function getQuestionContent(titleSlug) {
-  const query = gql`
-    query questionContent($titleSlug: String!) {
-      question(titleSlug: $titleSlug) {
         content
       }
     }
@@ -46,11 +20,17 @@ async function getQuestionContent(titleSlug) {
 
   try {
     const data = await request(LEETCODE_URL, query, variables);
+    const { questionFrontendId, title, difficulty, content } = data.question;
 
-    return data.question.content;
+    return {
+      id: +questionFrontendId,
+      title,
+      difficulty,
+      contentRaw: content,
+    };
   } catch (error) {
     console.error(`Error fetching problem slug: ${error}`);
   }
 }
 
-export { getQuestionInfo, getQuestionContent };
+export { getQuestionInfo };

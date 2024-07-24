@@ -1,6 +1,4 @@
-import readline from "readline";
-
-import { getQuestionInfo, getQuestionContent } from "./api/leetcodeApi.js";
+import { getQuestionInfo } from "./api/leetcodeApi.js";
 import { translateText } from "./api/translate.js";
 import { blogFormMaker } from "./utils/blogForm.js";
 import { contentReform } from "./utils/contentReform.js";
@@ -11,8 +9,7 @@ main();
 
 async function main() {
   const titleSlug = await inputTitle();
-  const { id, title, difficulty } = await getQuestionInfo(titleSlug);
-  const contentRaw = await getQuestionContent(titleSlug);
+  const { id, title, difficulty, contentRaw } = await getQuestionInfo(titleSlug);
 
   let { contentList, exampleList, constraintList } = contentReform(contentRaw);
   let contentKoreanList = await Promise.all(
